@@ -37,7 +37,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: 'never do your own laundry again',
+  secret: process.env.SESSION_SECRET,
+  // secret: 'never do your own laundry again',
   resave: true,
   saveUninitialized: true,
   cookie: { maxAge: 60000 },
