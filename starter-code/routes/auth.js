@@ -1,11 +1,13 @@
+const path = require('path');
+const User = require('../models/user');
 const express = require('express');
 const bcrypt = require('bcrypt');
-
-const User = require('../models/user');
+const multer = require('multer');
 
 const router = express.Router();
 const bcryptSalt = 10;
 
+const upload = multer({ dest: './public/avatars/' });
 
 router.get('/signup', (req, res, next) => {
   res.render('auth/signup', {
@@ -13,7 +15,7 @@ router.get('/signup', (req, res, next) => {
   });
 });
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', upload.single('avatar'), (req, res, next) => {
   const nameInput = req.body.name;
   const emailInput = req.body.email;
   const passwordInput = req.body.password;
@@ -44,7 +46,8 @@ router.post('/signup', (req, res, next) => {
     const userSubmission = {
       name: nameInput,
       email: emailInput,
-      password: hashedPass
+      password: hashedPass,
+      avatar: `/avatars/${req.file.filename}`
     };
 
     const theUser = new User(userSubmission);
