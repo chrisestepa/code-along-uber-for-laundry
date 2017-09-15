@@ -13,14 +13,14 @@ const users = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const laundryRoutes = require('./routes/laundry');
 
-// if(process.env.NODE_ENV === 'development'){
-//   require('dotenv').config();
-// }
+if(process.env.NODE_ENV === 'development'){
+  require('dotenv').config();
+}
 
 const app = express();
 
-//mongoose.connect(process.env.MONGO_URI)
-mongoose.connect('mongodb://localhost/uberlaundry');
+mongoose.connect(process.env.MONGO_URI);
+// mongoose.connect('mongodb://localhost/uberlaundry');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
