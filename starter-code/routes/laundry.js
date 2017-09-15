@@ -4,6 +4,7 @@ const User = require('../models/user');
 const router = express.Router();
 const LaundryPickup = require('../models/laundry-pickup');
 
+//middleware para que si no estas logedin no te deje acceder a ciertas paginas
 router.use((req, res, next) => {
   if (req.session.currentUser) {
     next();
